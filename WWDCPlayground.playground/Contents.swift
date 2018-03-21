@@ -26,6 +26,12 @@ class ViewController:UIViewController{
     
     private var videoDataOutput: AVCaptureVideoDataOutput!
     private var videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
+    
+    
+    //AUDIO TEST
+    let path = Bundle.main.path(forResource: "floute", ofType:"m4a")!
+    var baseSound: AVAudioPlayer?
+
 
     
     override func viewDidLoad() {
@@ -67,6 +73,8 @@ class ViewController:UIViewController{
         
         self.configureSession()
         self.session.startRunning()
+        
+        setupSound()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,7 +149,7 @@ class ViewController:UIViewController{
         // Get Classifications
         let classifications = observations[0...2] // top 3 results
             .flatMap({ $0 as? VNClassificationObservation })
-            .map({ "\($0.identifier) \(String(format:" : %.2f", $0.confidence))" })
+            .map({ "\($0.identifier)" })
             .joined(separator: "\n")
         
         // Render Classifications
@@ -152,9 +160,24 @@ class ViewController:UIViewController{
             
             // Display Debug Text on screen
             
-            
             self.labeClassification?.text = classifications.components(separatedBy: "\n")[0]
+            
+            if classifications.components(separatedBy: "\n")[0] == "hand" {
+                self.baseSound?.play()
+            } else {
+                self.baseSound?.stop()
+            }
 
+        }
+    }
+    
+    func setupSound() {
+        let url = URL(fileURLWithPath: path)
+        
+        do {
+            baseSound = try AVAudioPlayer(contentsOf: url)
+        } catch {
+            fatalError("Could not load audio file")
         }
     }
     
