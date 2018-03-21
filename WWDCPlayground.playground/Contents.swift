@@ -6,14 +6,17 @@ import AVFoundation
 
 class ViewController:UIViewController{
     
-    var handDetectionRequest: VNImageBasedRequest!
-    private var requests = [VNRequest]()
-    
+    //VIEW COMPONENTS
     var previewView: PreviewView?
     
     var buttonLeft: UIButton?
     var buttonRight: UIButton?
     var labeClassification: UILabel?
+    var sliderFrequency: UISlider?
+    
+    //VIDEO
+    var handDetectionRequest: VNImageBasedRequest!
+    private var requests = [VNRequest]()
     
     private var devicePosition: AVCaptureDevice.Position = .front
     
@@ -23,42 +26,20 @@ class ViewController:UIViewController{
     private let sessionQueue = DispatchQueue(label: "session queue", attributes: [], target: nil) // Communicate with the session and other session objects on this queue.
     
     private var videoDeviceInput: AVCaptureDeviceInput!
-    
     private var videoDataOutput: AVCaptureVideoDataOutput!
     private var videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
-    
-    
-    //AUDIO TEST
-    let path = Bundle.main.path(forResource: "floute", ofType:"m4a")!
-    var baseSound: AVAudioPlayer?
 
-
+    //AUDIO
+    var engine = AVAudioEngine()
+    var distortion = AVAudioUnitDistortion()
+    var reverb = AVAudioUnitReverb()
+    var myTone = MyAVAudioPlayerNode()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.backgroundColor = .brown
-        
-        buttonLeft = UIButton.init(frame:CGRect.init(x: 50, y: 107, width: 50, height:50))
-        buttonLeft?.backgroundColor = .white
-        buttonRight = UIButton.init(frame:CGRect.init(x: self.view.frame.width - 50, y: 130, width: 50, height:50))
-        buttonRight?.backgroundColor = .white
 
+        setUpView()
         
-        self.view.addSubview(buttonLeft!)
-        self.view.addSubview(buttonRight!)
-        
-        self.labeClassification = UILabel.init(frame: CGRect.init(x: 50, y: 200, width: UIScreen.main.bounds.width-20, height: 15))
-        self.labeClassification?.backgroundColor = UIColor.clear
-        self.labeClassification?.font = UIFont.systemFont(ofSize: 12)
-        self.view.addSubview(self.labeClassification!)
-
-        
-        
-        previewView = PreviewView()
-        previewView?.session = session
-
-        self.view.addSubview(previewView!)
         
         guard let selectedModel = try? VNCoreMLModel(for: hand_recognizer_model().model) else {
             fatalError("Could not load model. Ensure model has been drag and dropped (copied) to XCode Project. Also ensure the model is part of a target (see: https://stackoverflow.com/questions/45884085/model-is-not-part-of-any-target-add-the-model-to-a-target-to-enable-generation ")
@@ -71,7 +52,7 @@ class ViewController:UIViewController{
 
         setupVision()
         
-        self.configureSession()
+        self.configureVideoSession()
         self.session.startRunning()
         
         setupSound()
@@ -90,7 +71,7 @@ class ViewController:UIViewController{
         super.viewWillDisappear(animated)
     }
     
-    private func configureSession() {
+    private func configureVideoSession() {
         
         session.beginConfiguration()
         session.sessionPreset = .high
@@ -154,31 +135,147 @@ class ViewController:UIViewController{
         
         // Render Classifications
         DispatchQueue.main.async {
-            // Print Classifications
-             print(classifications)
-            // print("-------------")
-            
-            // Display Debug Text on screen
             
             self.labeClassification?.text = classifications.components(separatedBy: "\n")[0]
             
-            if classifications.components(separatedBy: "\n")[0] == "hand" {
-                self.baseSound?.play()
-            } else {
-                self.baseSound?.stop()
+            //Chosing different sound for different classification
+            switch classifications.components(separatedBy: "\n")[0] {
+            case ModelStatesEnum.HAND:
+                let freq = PlaygroundManager.shared.currentFrequency * pow(2.0, TonesEnum.NO_HAND)
+                self.myTone.frequency = freq
+                self.myTone.amplitude = PlaygroundManager.shared.currentAmplitude
+                
+                self.myTone.preparePlaying()
+                self.myTone.play()
+                self.engine.mainMixerNode.volume = 1.0
+            case ModelStatesEnum.HAND_1:
+                let freq = PlaygroundManager.shared.currentFrequency * pow(2.0, TonesEnum.HAND_1)
+                self.myTone.frequency = freq
+                self.myTone.amplitude = PlaygroundManager.shared.currentAmplitude
+                
+                self.myTone.preparePlaying()
+                self.myTone.play()
+                self.engine.mainMixerNode.volume = 1.0
+            case ModelStatesEnum.HAND_2:
+                let freq = PlaygroundManager.shared.currentFrequency * pow(2.0, TonesEnum.HAND_2)
+                self.myTone.frequency = freq
+                self.myTone.amplitude = PlaygroundManager.shared.currentAmplitude
+                
+                self.myTone.preparePlaying()
+                self.myTone.play()
+                self.engine.mainMixerNode.volume = 1.0
+            case ModelStatesEnum.HAND_3:
+                let freq = PlaygroundManager.shared.currentFrequency * pow(2.0, TonesEnum.HAND_3)
+                self.myTone.frequency = freq
+                self.myTone.amplitude = PlaygroundManager.shared.currentAmplitude
+                
+                self.myTone.preparePlaying()
+                self.myTone.play()
+                self.engine.mainMixerNode.volume = 1.0
+            case ModelStatesEnum.HAND_4:
+                let freq = PlaygroundManager.shared.currentFrequency * pow(2.0, TonesEnum.HAND_4)
+                self.myTone.frequency = freq
+                self.myTone.amplitude = 1
+                
+                self.myTone.preparePlaying()
+                self.myTone.play()
+                self.engine.mainMixerNode.volume = 1.0
+            case ModelStatesEnum.HAND_5:
+                let freq = PlaygroundManager.shared.currentFrequency * pow(2.0, TonesEnum.HAND_5)
+                self.myTone.frequency = freq
+                self.myTone.amplitude = PlaygroundManager.shared.currentAmplitude
+                
+                self.myTone.preparePlaying()
+                self.myTone.play()
+                self.engine.mainMixerNode.volume = 1.0
+            case ModelStatesEnum.HAND_6:
+                let freq = PlaygroundManager.shared.currentFrequency * pow(2.0, TonesEnum.HAND_6)
+                self.myTone.frequency = freq
+                self.myTone.amplitude = PlaygroundManager.shared.currentAmplitude
+                
+                self.myTone.preparePlaying()
+                self.myTone.play()
+                self.engine.mainMixerNode.volume = 1.0
+            default:
+                self.engine.mainMixerNode.volume = 0.0
+                self.myTone.stop()
             }
 
         }
+        
+    }
+    
+    func setUpView() {
+        
+        self.view = UIView()
+        self.view.frame = CGRect(x: 0, y: 0, width: 1024, height: 768)
+    
+        self.view.backgroundColor = .brown
+        
+        buttonLeft = UIButton.init(frame:CGRect.init(x: 50, y: 130, width: 50, height:50))
+        buttonLeft?.backgroundColor = .white
+        buttonLeft?.addTarget(self, action: #selector(buttonLeftPressed), for: .touchUpInside)
+        
+        
+        buttonRight = UIButton.init(frame:CGRect.init(x: self.view.frame.width - 50, y: 130, width: 50, height:50))
+        buttonRight?.backgroundColor = .white
+        buttonRight?.addTarget(self, action: #selector(buttonRightPressed), for: .touchUpInside)
+        
+        self.view.addSubview(buttonLeft!)
+        self.view.addSubview(buttonRight!)
+        
+        sliderFrequency = UISlider.init(frame: CGRect.init(x: self.view.frame.width/2, y: self.view.frame.height/2, width: 300, height:50))
+        
+        sliderFrequency?.minimumValue = -5.0
+        sliderFrequency?.maximumValue = 5.0
+        sliderFrequency?.addTarget(self, action: #selector(sliderValueDidChange(_:)), for: .valueChanged)
+        
+        self.view.addSubview(sliderFrequency!)
+        
+        self.labeClassification = UILabel.init(frame: CGRect.init(x: self.view.frame.width/2, y: self.view.frame.height/3, width: 100, height: 50))
+        self.labeClassification?.backgroundColor = UIColor.clear
+        self.labeClassification?.font = UIFont.systemFont(ofSize: 20)
+        self.view.addSubview(self.labeClassification!)
+        
+        
+        
+        previewView = PreviewView()
+        previewView?.session = session
+        
+        self.view.addSubview(previewView!)
     }
     
     func setupSound() {
-        let url = URL(fileURLWithPath: path)
-        
+        let format = AVAudioFormat(standardFormatWithSampleRate: myTone.sampleRate, channels: 1)
+
+        engine = AVAudioEngine()
+        engine.attach(myTone)
+        let mixer = engine.mainMixerNode
+        engine.connect(myTone, to: mixer, format: format)
         do {
-            baseSound = try AVAudioPlayer(contentsOf: url)
-        } catch {
-            fatalError("Could not load audio file")
+            try engine.start()
+        } catch let error as NSError {
+            print(error)
         }
+
+    }
+    
+    @objc func buttonLeftPressed()
+    {
+        print("buttonLeftPressed")
+        PlaygroundManager.shared.currentFrequency -= 10
+    }
+    
+    @objc func buttonRightPressed()
+    {
+        print("buttonRightPressed")
+        PlaygroundManager.shared.currentFrequency += 10
+    }
+    
+    @objc func sliderValueDidChange(_ sender:UISlider!)
+    {
+        print("FrequencySlider value: \(sender.value)")
+        PlaygroundManager.shared.currentFrequency = Double(sender.value)
     }
     
 }
@@ -222,8 +319,7 @@ PlaygroundPage.current.liveView = viewController
 PlaygroundPage.current.needsIndefiniteExecution = true
 /*:
  ## Let's start
- Test text
- **Next Chapter**!
+ **Put your hand on top of the camera**!
  */
 
 
