@@ -16,19 +16,23 @@ public class AudioManager: NSObject, AVAudioPlayerDelegate {
     
     var myPlayers = [AVAudioPlayer]()
     
-    let guitarSounds = ["guitar_1.wav","guitar_2.wav","guitar_3.wav","guitar_1.wav","guitar_2.wav","guitar_3.wav"]
-    let drumSounds = ["guitar_1.wav","guitar_2.wav","guitar_3.wav","guitar_1.wav","guitar_2.wav","guitar_3.wav"]
-    let bandSounds = ["guitar_1.wav","guitar_2.wav","guitar_3.wav","guitar_1.wav","guitar_2.wav","guitar_3.wav"]
+    let guitarSounds = ["guitar_1.wav","guitar_2.wav","guitar_3.wav","guitar_4.wav","guitar_5.wav","guitar_6.wav"]
+    let drumSounds = ["drum_1.wav","drum_2.wav","drum_3.wav","drum_4.wav","drum_5.wav","drum_6.wav"]
+    let bandSounds = ["guitar_1.wav","drum_2.wav","guitar_3.wav","drum_4.wav","guitar_5.wav","drum_6.wav"]
     
     
     public func prepareAudioPlayers(instrument: Int) {
         switch instrument {
         case InstrumentsEnum.BAND:
-            prepareURLS(soundFiles: guitarSounds)
+            prepareURLS(soundFiles: bandSounds)
             break
             
         case InstrumentsEnum.DRUM:
             prepareURLS(soundFiles: drumSounds)
+            break
+            
+        case InstrumentsEnum.GUITAR:
+            prepareURLS(soundFiles: guitarSounds)
             break
             
         default:

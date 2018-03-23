@@ -29,18 +29,7 @@ public class MainViewController:UIViewController{
     private var videoDataOutput: AVCaptureVideoDataOutput!
     private var videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
     
-    //AUDIO
-    var engine = AVAudioEngine()
-    var distortion = AVAudioUnitDistortion()
-    var reverb = AVAudioUnitReverb()
-    var myTone = MyAVAudioPlayerNode()
-    
-    var myAudioPlayer: AVAudioPlayer?
-    var path: String?
-    var url: URL?
-    
 
-    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -244,40 +233,6 @@ public class MainViewController:UIViewController{
     
     func setupSound() {
        AudioManager.sharedInstance.prepareAudioPlayers(instrument: InstrumentsEnum.BAND)
-//        let path = Bundle.main.path(forResource: "floute", ofType:"m4a")!
-//        let url = URL(fileURLWithPath: path)
-//        do {
-//        myAudioPlayer = try AVAudioPlayer(contentsOf: url)
-//        } catch {
-//            print("File not found")
-//        }
-//        let format = AVAudioFormat(standardFormatWithSampleRate: myTone.sampleRate, channels: 1)
-//
-//        engine = AVAudioEngine()
-//        engine.attach(myTone)
-//        let mixer = engine.mainMixerNode
-//        engine.connect(myTone, to: mixer, format: format)
-//        do {
-//            try engine.start()
-//        } catch let error as NSError {
-//            print(error)
-//        }
-        
-    }
-    
-    func playSoundFile(_ soundName: String) {
-        let url = Bundle.main.url(forResource: soundName, withExtension: "m4a")!
-        
-        do {
-            let sound = try AVAudioPlayer(contentsOf: url)
-            self.myAudioPlayer = sound
-            sound.numberOfLoops = -1
-            sound.prepareToPlay()
-            sound.play()
-        } catch {
-            print("error loading file")
-            // couldn't load file :(
-        }
     }
     
     @objc func buttonLeftPressed()
