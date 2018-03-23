@@ -1,8 +1,7 @@
+import Foundation
 import UIKit
-import PlaygroundSupport
 import Vision
 import AVFoundation
-
 
 public class MainViewController:UIViewController{
     
@@ -34,12 +33,6 @@ public class MainViewController:UIViewController{
     var distortion = AVAudioUnitDistortion()
     var reverb = AVAudioUnitReverb()
     var myTone = MyAVAudioPlayerNode()
-    
-    var myAudioPlayer: AVAudioPlayer?
-    var path: String?
-    var url: URL?
-    
-
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,18 +74,13 @@ public class MainViewController:UIViewController{
             if let frontCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front){
                 defaultVideoDevice = frontCameraDevice
             }
-            if defaultVideoDevice != nil {
-                let videoDeviceInput = try AVCaptureDeviceInput(device: defaultVideoDevice!)
-
-                if session.canAddInput(videoDeviceInput) {
-                    session.addInput(videoDeviceInput)
-                    self.videoDeviceInput = videoDeviceInput
-                    self.previewView?.videoPreviewLayer.connection!.videoOrientation = .portrait
-                }
-            } else {
-                let alert = UIAlertController(title: "NO CAMERA FOUND", message: "This device can't run the Playground", preferredStyle: .alert)
-                //alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+            
+            let videoDeviceInput = try AVCaptureDeviceInput(device: defaultVideoDevice!)
+            
+            if session.canAddInput(videoDeviceInput) {
+                session.addInput(videoDeviceInput)
+                self.videoDeviceInput = videoDeviceInput
+                self.previewView?.videoPreviewLayer.connection!.videoOrientation = .portrait
             }
         } catch {
             print("Could not create video device input: \(error)")
@@ -139,48 +127,83 @@ public class MainViewController:UIViewController{
         DispatchQueue.main.async {
             
             self.labeClassification?.text = classifications.components(separatedBy: "\n")[1]
-            
-//            switch classifications.components(separatedBy: "\n")[1] {
-//            case ModelStatesStringEnum.HAND:
-//                AudioManager.sharedInstance.playSoundFromGesture(gesture: ModelStatesEnum.HAND_1)
-//            default:
-//                AudioManager.sharedInstance.playSoundFromGesture(gesture: ModelStatesEnum.HAND)
-//
-//            }
-            
+
             //Chosing different sound for different classification
             switch classifications.components(separatedBy: "\n")[1] {
             case ModelStatesStringEnum.HAND:
-                AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND)
-                break
-
-            case ModelStatesStringEnum.HAND_1:
-                AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_1)
-                break
-
-            case ModelStatesStringEnum.HAND_2:
-                AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_2)
-                break
-
-            case ModelStatesStringEnum.HAND_3:
-                AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_3)
-                break
-
-            case ModelStatesStringEnum.HAND_4:
-                AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_4)
-                break
+                let freq = PlaygroundManager.shared.currentFrequency * pow(2.0, TonesEnum.NO_HAND)
                 
+                self.myTone.frequency = freq
+                self.myTone.amplitude = PlaygroundManager.shared.currentAmplitude
 
+                if !self.myTone.isPlaying {
+                    self.myTone.preparePlaying()
+                    self.myTone.play()
+                    self.engine.mainMixerNode.volume = 1.0
+                }
+            case ModelStatesStringEnum.HAND_1:
+                let freq = PlaygroundManager.shared.currentFrequency * pow(2.0, TonesEnum.HAND_1)
+                self.myTone.frequency = freq
+                self.myTone.amplitude = PlaygroundManager.shared.currentAmplitude
+
+                if !self.myTone.isPlaying {
+                    self.myTone.preparePlaying()
+                    self.myTone.play()
+                    self.engine.mainMixerNode.volume = 1.0
+                }
+            case ModelStatesStringEnum.HAND_2:
+                let freq = PlaygroundManager.shared.currentFrequency * pow(2.0, TonesEnum.HAND_2)
+                self.myTone.frequency = freq
+                self.myTone.amplitude = PlaygroundManager.shared.currentAmplitude
+
+                if !self.myTone.isPlaying {
+                    self.myTone.preparePlaying()
+                    self.myTone.play()
+                    self.engine.mainMixerNode.volume = 1.0
+                }
+            case ModelStatesStringEnum.HAND_3:
+                let freq = PlaygroundManager.shared.currentFrequency * pow(2.0, TonesEnum.HAND_3)
+                self.myTone.frequency = freq
+                self.myTone.amplitude = PlaygroundManager.shared.currentAmplitude
+
+                if !self.myTone.isPlaying {
+                    self.myTone.preparePlaying()
+                    self.myTone.play()
+                    self.engine.mainMixerNode.volume = 1.0
+                }
+            case ModelStatesStringEnum.HAND_4:
+                let freq = PlaygroundManager.shared.currentFrequency * pow(2.0, TonesEnum.HAND_4)
+                self.myTone.frequency = freq
+                self.myTone.amplitude = 1
+
+                if !self.myTone.isPlaying {
+                    self.myTone.preparePlaying()
+                    self.myTone.play()
+                    self.engine.mainMixerNode.volume = 1.0
+                }
             case ModelStatesStringEnum.HAND_5:
-                AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_5)
-                break
+                let freq = PlaygroundManager.shared.currentFrequency * pow(2.0, TonesEnum.HAND_5)
+                self.myTone.frequency = freq
+                self.myTone.amplitude = PlaygroundManager.shared.currentAmplitude
 
+                if !self.myTone.isPlaying {
+                    self.myTone.preparePlaying()
+                    self.myTone.play()
+                    self.engine.mainMixerNode.volume = 1.0
+                }
             case ModelStatesStringEnum.HAND_6:
-                AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_6)
-                break
+                let freq = PlaygroundManager.shared.currentFrequency * pow(2.0, TonesEnum.HAND_6)
+                self.myTone.frequency = freq
+                self.myTone.amplitude = PlaygroundManager.shared.currentAmplitude
+
+                if !self.myTone.isPlaying {
+                    self.myTone.preparePlaying()
+                    self.myTone.play()
+                    self.engine.mainMixerNode.volume = 1.0
+                }
             default:
-                AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.CEILING)
-                break
+                self.engine.mainMixerNode.volume = 0.0
+                self.myTone.stop()
             }
             
         }
@@ -189,7 +212,7 @@ public class MainViewController:UIViewController{
     
     func setUpCoreMLModel() {
         guard let selectedModel = try? VNCoreMLModel(for: hand_recognizer_model_2().model) else {
-            fatalError("Could not load model.")
+            fatalError("Could not load model. Ensure model has been drag and dropped (copied) to XCode Project. Also ensure the model is part of a target (see: https://stackoverflow.com/questions/45884085/model-is-not-part-of-any-target-add-the-model-to-a-target-to-enable-generation ")
         }
         
         // Set up Vision-CoreML Request
@@ -201,13 +224,9 @@ public class MainViewController:UIViewController{
     func setUpView() {
         
         self.view = UIView()
+        self.view.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
         
-        let internalView = UIView()
-        internalView.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
-        internalView.bounds = CGRect(x: 0, y: 0, width: 500, height: 500)
-        internalView.backgroundColor = .brown
-        
-        self.view.addSubview(internalView)
+        self.view.backgroundColor = .brown
         
         buttonLeft = UIButton.init(frame:CGRect.init(x: 50, y: 130, width: 50, height:50))
         buttonLeft?.backgroundColor = .white
@@ -218,8 +237,8 @@ public class MainViewController:UIViewController{
         buttonRight?.backgroundColor = .white
         buttonRight?.addTarget(self, action: #selector(buttonRightPressed), for: .touchUpInside)
         
-        internalView.addSubview(buttonLeft!)
-        internalView.addSubview(buttonRight!)
+        self.view.addSubview(buttonLeft!)
+        self.view.addSubview(buttonRight!)
         
         sliderFrequency = UISlider.init(frame: CGRect.init(x: self.view.frame.width/2, y: self.view.frame.height/2, width: 300, height:50))
         
@@ -227,57 +246,34 @@ public class MainViewController:UIViewController{
         sliderFrequency?.maximumValue = 5.0
         sliderFrequency?.addTarget(self, action: #selector(sliderValueDidChange(_:)), for: .valueChanged)
         
-        internalView.addSubview(sliderFrequency!)
+        self.view.addSubview(sliderFrequency!)
         
         self.labeClassification = UILabel.init(frame: CGRect.init(x: self.view.frame.width/2, y: self.view.frame.height/3, width: 100, height: 50))
         self.labeClassification?.backgroundColor = UIColor.clear
         self.labeClassification?.font = UIFont.systemFont(ofSize: 20)
-        internalView.addSubview(self.labeClassification!)
+        self.view.addSubview(self.labeClassification!)
         
         
         
         previewView = PreviewView()
         previewView?.session = session
         
-        internalView.addSubview(previewView!)
+        self.view.addSubview(previewView!)
     }
     
     func setupSound() {
-       AudioManager.sharedInstance.prepareAudioPlayers(instrument: InstrumentsEnum.BAND)
-//        let path = Bundle.main.path(forResource: "floute", ofType:"m4a")!
-//        let url = URL(fileURLWithPath: path)
-//        do {
-//        myAudioPlayer = try AVAudioPlayer(contentsOf: url)
-//        } catch {
-//            print("File not found")
-//        }
-//        let format = AVAudioFormat(standardFormatWithSampleRate: myTone.sampleRate, channels: 1)
-//
-//        engine = AVAudioEngine()
-//        engine.attach(myTone)
-//        let mixer = engine.mainMixerNode
-//        engine.connect(myTone, to: mixer, format: format)
-//        do {
-//            try engine.start()
-//        } catch let error as NSError {
-//            print(error)
-//        }
+        let format = AVAudioFormat(standardFormatWithSampleRate: myTone.sampleRate, channels: 1)
         
-    }
-    
-    func playSoundFile(_ soundName: String) {
-        let url = Bundle.main.url(forResource: soundName, withExtension: "m4a")!
-        
+        engine = AVAudioEngine()
+        engine.attach(myTone)
+        let mixer = engine.mainMixerNode
+        engine.connect(myTone, to: mixer, format: format)
         do {
-            let sound = try AVAudioPlayer(contentsOf: url)
-            self.myAudioPlayer = sound
-            sound.numberOfLoops = -1
-            sound.prepareToPlay()
-            sound.play()
-        } catch {
-            print("error loading file")
-            // couldn't load file :(
+            try engine.start()
+        } catch let error as NSError {
+            print(error)
         }
+        
     }
     
     @objc func buttonLeftPressed()
@@ -331,24 +327,3 @@ extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
     }
     
 }
-
-let viewController = MainViewController()
-PlaygroundPage.current.liveView = viewController
-PlaygroundPage.current.needsIndefiniteExecution = true
-/*:
- ## Let's start
- **Put your hand on top of the camera**!
- */
-
-//
-//PlaygroundPage.current.needsIndefiniteExecution = true
-//let window = UIWindow()
-//let viewController = MainViewController()
-//window.rootViewController = viewController
-//window.makeKeyAndVisible()
-//
-//let alert = UIAlertController(title: "title here", message: "message here", preferredStyle: .alert)
-//alert.addAction(UIAlertAction(title: "action here", style: .default, handler: nil))
-//viewController.present(alert, animated: true, completion: nil)
-//PlaygroundPage.current.liveView = window
-

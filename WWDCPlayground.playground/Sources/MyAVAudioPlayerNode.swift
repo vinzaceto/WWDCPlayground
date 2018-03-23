@@ -52,8 +52,8 @@ public class MyAVAudioPlayerNode: AVAudioPlayerNode {
     
     public func preparePlaying() {
         scheduleBuffer()
-//        scheduleBuffer()
-//        scheduleBuffer()
-//        scheduleBuffer()
+        scheduleBuffer()
+        scheduleBuffer()
+        scheduleBuffer()
     }
 }

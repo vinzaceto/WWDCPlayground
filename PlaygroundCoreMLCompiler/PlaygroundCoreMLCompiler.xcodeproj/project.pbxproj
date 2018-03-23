@@ -7,15 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		743A9DEC2064EF7D00D843B0 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A9DEB2064EF7D00D843B0 /* AudioManager.swift */; };
+		743A9DEE2064FA3500D843B0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A9DED2064FA3500D843B0 /* Constants.swift */; };
+		743A9DF22065112500D843B0 /* guitar_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 743A9DEF2065112400D843B0 /* guitar_2.wav */; };
+		743A9DF32065112500D843B0 /* guitar_1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 743A9DF02065112400D843B0 /* guitar_1.wav */; };
+		743A9DF42065112500D843B0 /* guitar_3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 743A9DF12065112500D843B0 /* guitar_3.wav */; };
 		74A3998B20615CE6001F0776 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A3998A20615CE6001F0776 /* AppDelegate.swift */; };
 		74A3998D20615CE6001F0776 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A3998C20615CE6001F0776 /* ViewController.swift */; };
 		74A3999020615CE6001F0776 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74A3998E20615CE6001F0776 /* Main.storyboard */; };
 		74A3999220615CE6001F0776 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74A3999120615CE6001F0776 /* Assets.xcassets */; };
 		74A3999520615CE6001F0776 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74A3999320615CE6001F0776 /* LaunchScreen.storyboard */; };
 		74A3999D20615D0B001F0776 /* hand_recognizer_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 74A3999C20615D0B001F0776 /* hand_recognizer_model.mlmodel */; };
+		74B23B1D2063EDA000A6CF7E /* hand_recognizer_model_2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 74B23B1C2063EDA000A6CF7E /* hand_recognizer_model_2.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		743A9DEB2064EF7D00D843B0 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
+		743A9DED2064FA3500D843B0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		743A9DEF2065112400D843B0 /* guitar_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = guitar_2.wav; sourceTree = "<group>"; };
+		743A9DF02065112400D843B0 /* guitar_1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = guitar_1.wav; sourceTree = "<group>"; };
+		743A9DF12065112500D843B0 /* guitar_3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = guitar_3.wav; sourceTree = "<group>"; };
 		74A3998720615CE6001F0776 /* PlaygroundCoreMLCompiler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlaygroundCoreMLCompiler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74A3998A20615CE6001F0776 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74A3998C20615CE6001F0776 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +35,7 @@
 		74A3999420615CE6001F0776 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74A3999620615CE6001F0776 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74A3999C20615D0B001F0776 /* hand_recognizer_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = hand_recognizer_model.mlmodel; sourceTree = "<group>"; };
+		74B23B1C2063EDA000A6CF7E /* hand_recognizer_model_2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = hand_recognizer_model_2.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +75,12 @@
 				74A3999320615CE6001F0776 /* LaunchScreen.storyboard */,
 				74A3999620615CE6001F0776 /* Info.plist */,
 				74A3999C20615D0B001F0776 /* hand_recognizer_model.mlmodel */,
+				74B23B1C2063EDA000A6CF7E /* hand_recognizer_model_2.mlmodel */,
+				743A9DEB2064EF7D00D843B0 /* AudioManager.swift */,
+				743A9DED2064FA3500D843B0 /* Constants.swift */,
+				743A9DF02065112400D843B0 /* guitar_1.wav */,
+				743A9DEF2065112400D843B0 /* guitar_2.wav */,
+				743A9DF12065112500D843B0 /* guitar_3.wav */,
 			);
 			path = PlaygroundCoreMLCompiler;
 			sourceTree = "<group>";
@@ -126,7 +144,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				743A9DF42065112500D843B0 /* guitar_3.wav in Resources */,
 				74A3999520615CE6001F0776 /* LaunchScreen.storyboard in Resources */,
+				743A9DF22065112500D843B0 /* guitar_2.wav in Resources */,
+				743A9DF32065112500D843B0 /* guitar_1.wav in Resources */,
 				74A3999220615CE6001F0776 /* Assets.xcassets in Resources */,
 				74A3999020615CE6001F0776 /* Main.storyboard in Resources */,
 			);
@@ -141,7 +162,10 @@
 			files = (
 				74A3998D20615CE6001F0776 /* ViewController.swift in Sources */,
 				74A3999D20615D0B001F0776 /* hand_recognizer_model.mlmodel in Sources */,
+				74B23B1D2063EDA000A6CF7E /* hand_recognizer_model_2.mlmodel in Sources */,
+				743A9DEC2064EF7D00D843B0 /* AudioManager.swift in Sources */,
 				74A3998B20615CE6001F0776 /* AppDelegate.swift in Sources */,
+				743A9DEE2064FA3500D843B0 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

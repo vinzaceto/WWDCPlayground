@@ -14,6 +14,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let model = hand_recognizer_model()
+        AudioManager.sharedInstance.prepareAudioPlayers(instrument: InstrumentsEnum.BAND)
+        AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_1)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+                AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_5
+                )
+            }
+        }
+
     }
 
     override func didReceiveMemoryWarning() {
