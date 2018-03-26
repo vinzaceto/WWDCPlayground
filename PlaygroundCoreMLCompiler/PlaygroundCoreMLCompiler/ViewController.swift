@@ -21,7 +21,18 @@ class ViewController: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_5
                 )
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    AudioManager.sharedInstance.prepareRecorder()
+                    AudioManager.sharedInstance.startRecording()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        AudioManager.sharedInstance.stopRecording(success: true)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            AudioManager.sharedInstance.playRecorderFile()
+                        }
+                    }
+                }
             }
+            
         }
 
     }

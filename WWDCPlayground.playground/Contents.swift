@@ -1,7 +1,11 @@
+//#-hidden-code
+
 import UIKit
 import PlaygroundSupport
 import Vision
 import AVFoundation
+
+//#-end-hidden-code
 
 
 public class MainViewController:UIViewController{
@@ -40,7 +44,6 @@ public class MainViewController:UIViewController{
         
         self.configureVideoSession()
         self.session.startRunning()
-        
         
     }
     
@@ -129,14 +132,6 @@ public class MainViewController:UIViewController{
             
             self.labeClassification?.text = classifications.components(separatedBy: "\n")[1]
             
-//            switch classifications.components(separatedBy: "\n")[1] {
-//            case ModelStatesStringEnum.HAND:
-//                AudioManager.sharedInstance.playSoundFromGesture(gesture: ModelStatesEnum.HAND_1)
-//            default:
-//                AudioManager.sharedInstance.playSoundFromGesture(gesture: ModelStatesEnum.HAND)
-//
-//            }
-            
             //Chosing different sound for different classification
             switch classifications.components(separatedBy: "\n")[1] {
             case ModelStatesStringEnum.HAND:
@@ -188,47 +183,75 @@ public class MainViewController:UIViewController{
     }
     
     func setUpView() {
-        
-        self.view = UIView()
-        
-        let internalView = UIView()
-        internalView.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
-        internalView.bounds = CGRect(x: 0, y: 0, width: 500, height: 500)
-        internalView.backgroundColor = .brown
-        
-        self.view.addSubview(internalView)
-        
-        buttonLeft = UIButton.init(frame:CGRect.init(x: 50, y: 130, width: 50, height:50))
-        buttonLeft?.backgroundColor = .white
-        buttonLeft?.addTarget(self, action: #selector(buttonLeftPressed), for: .touchUpInside)
+        let backgroundImageView = UIImageView(image: UIImage(named: "speaker_background"))
+        backgroundImageView.frame = view.frame
+        backgroundImageView.contentMode = .scaleAspectFill
+        view.addSubview(backgroundImageView)
+        view.sendSubview(toBack: backgroundImageView)
+
+        let logoImageView = UIImageView(image: UIImage(named: "MUchineLearning"))
+        backgroundImageView.frame = view.frame
+        backgroundImageView.contentMode = .scaleAspectFill
+        view.addSubview(logoImageView)
         
         
-        buttonRight = UIButton.init(frame:CGRect.init(x: self.view.frame.width - 50, y: 130, width: 50, height:50))
-        buttonRight?.backgroundColor = .white
-        buttonRight?.addTarget(self, action: #selector(buttonRightPressed), for: .touchUpInside)
+        let views = ["logoView": logoImageView]
+
+        var constraints = [NSLayoutConstraint]()
+        constraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-25-[logoView]-25-|", options: [], metrics: nil, views: views)
+        constraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-25-[logoView]", options: [], metrics: nil, views: views)
+
+        NSLayoutConstraint.activate(constraints)
         
-        internalView.addSubview(buttonLeft!)
-        internalView.addSubview(buttonRight!)
-        
-        sliderFrequency = UISlider.init(frame: CGRect.init(x: self.view.frame.width/2, y: self.view.frame.height/2, width: 300, height:50))
-        
-        sliderFrequency?.minimumValue = -5.0
-        sliderFrequency?.maximumValue = 5.0
-        sliderFrequency?.addTarget(self, action: #selector(sliderValueDidChange(_:)), for: .valueChanged)
-        
-        internalView.addSubview(sliderFrequency!)
-        
-        self.labeClassification = UILabel.init(frame: CGRect.init(x: self.view.frame.width/2, y: self.view.frame.height/3, width: 100, height: 50))
-        self.labeClassification?.backgroundColor = UIColor.clear
-        self.labeClassification?.font = UIFont.systemFont(ofSize: 20)
-        internalView.addSubview(self.labeClassification!)
-        
-        
-        
+    logoImageView.translatesAutoresizingMaskIntoConstraints = false
+//        let internalView = UIView()
+//        internalView.frame = CGRect(x: 0, y:0, width: 500, height: 500)
+//        internalView.backgroundColor = .brown
+//        self.view.addSubview(internalView)
+//
+//        buttonLeft = UIButton.init(frame:CGRect.init(x:0, y: 0, width: 50, height:50))
+//        buttonLeft?.backgroundColor = .white
+//        buttonLeft?.addTarget(self, action: #selector(buttonLeftPressed), for: .touchUpInside)
+//
+//
+//        buttonRight = UIButton.init(frame:CGRect.init(x: 0, y: 0, width: 50, height:50))
+//        buttonRight?.backgroundColor = .white
+//        buttonRight?.addTarget(self, action: #selector(buttonRightPressed), for: .touchUpInside)
+//
+//        internalView.addSubview(buttonLeft!)
+//        internalView.addSubview(buttonRight!)
+//
+//        buttonRight?.translatesAutoresizingMaskIntoConstraints = false
+//        buttonRight?.centerXAnchor.constraint(equalTo: internalView.centerXAnchor).isActive = true
+//        buttonRight?.centerYAnchor.constraint(equalTo: internalView.centerYAnchor).isActive = true
+//
+//        buttonRight?.topAnchor.constraint(equalTo: internalView.topAnchor, constant: 50).isActive = true
+//        buttonRight?.leadingAnchor.constraint(equalTo: internalView.leadingAnchor, constant: 50).isActive = true
+//
+//        self.labeClassification = UILabel.init(frame: CGRect.init(x: internalView.frame.width/2 - 50, y: internalView.frame.height/2 - 25, width: 100, height: 50))
+//        self.labeClassification?.backgroundColor = UIColor.clear
+//        self.labeClassification?.font = UIFont.systemFont(ofSize: 20)
+//        internalView.addSubview(self.labeClassification!)
+//
+//        let views = ["internalView": internalView]
+//
+//        var constraints = [NSLayoutConstraint]()
+//        constraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-25-[internalView]-25-|", options: [], metrics: nil, views:views)
+//        constraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-25-[internalView]-25-|", options: [], metrics: nil, views:views)
+//
+//        NSLayoutConstraint.activate(constraints)
+//
+//        internalView.translatesAutoresizingMaskIntoConstraints = false
+//        internalView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        internalView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//    
+//        internalView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 100).isActive = true
+//        internalView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+
         previewView = PreviewView()
         previewView?.session = session
         
-        internalView.addSubview(previewView!)
+        //internalView.addSubview(previewView!)
     }
     
     func setupSound() {
@@ -294,16 +317,3 @@ PlaygroundPage.current.needsIndefiniteExecution = true
  ## Let's start
  **Put your hand on top of the camera**!
  */
-
-//
-//PlaygroundPage.current.needsIndefiniteExecution = true
-//let window = UIWindow()
-//let viewController = MainViewController()
-//window.rootViewController = viewController
-//window.makeKeyAndVisible()
-//
-//let alert = UIAlertController(title: "title here", message: "message here", preferredStyle: .alert)
-//alert.addAction(UIAlertAction(title: "action here", style: .default, handler: nil))
-//viewController.present(alert, animated: true, completion: nil)
-//PlaygroundPage.current.liveView = window
-

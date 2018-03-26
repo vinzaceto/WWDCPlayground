@@ -4,7 +4,7 @@ import Vision
 import AVFoundation
 
 
-public class MainViewController:UIViewController{
+private class MainViewController:UIViewController{
     
     //VIEW COMPONENTS
     var previewView: PreviewView?

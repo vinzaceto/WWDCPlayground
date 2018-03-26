@@ -306,7 +306,7 @@
 				DEVELOPMENT_TEAM = E76VR3ED8R;
 				INFOPLIST_FILE = PlaygroundCoreMLCompiler/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vincenzoaceto.PlaygroundCoreMLCompiler;
+				PRODUCT_BUNDLE_IDENTIFIER = com.waller.madeinchain.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -321,7 +321,7 @@
 				DEVELOPMENT_TEAM = E76VR3ED8R;
 				INFOPLIST_FILE = PlaygroundCoreMLCompiler/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vincenzoaceto.PlaygroundCoreMLCompiler;
+				PRODUCT_BUNDLE_IDENTIFIER = com.waller.madeinchain.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
