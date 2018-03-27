@@ -271,4 +271,36 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 /*:
  ## Let's start
  **Put your hand on top of the camera**!
+ 
+  - - -
+ */
+
+/*:
+ MUchineLearning is a word created by _MUsic Machine_ and _Machine Learning_
+ 
+ This playground uses machine learning to recognise gestures, that you can easily do with your hand, and it reproduces different sounds based on the different gestures . You can choose different music instruments and, in the bottom of the view, you can see what the playground are recognising every moment.
+ To realise this magic, i used Vision and CoreML: very powerful tools. I used Vision to get images catches by the front camera of the iPad and I passed this very heavy flow of information to CoreML that has interpreted it and categorised all the results sorted by percentage of probability.
+ Another important need to reach the gaol is the neural network to use with CoreML. I created my personal neural network with my Iphone camera, hundreds photos of my hands and a third part free online tool. This neural network has precision about 90% to recognise the right gesture that you are reproducing: obviously it is influenced by light condition and ceiling color but it works enough well.
+ To use the neural network in this playground, I created another project in Xcode that I used to compile the neural network model and then I putted it in to the playground.
+ 
+ It was my first time using machine learning and I was being really fascinated about this world.
+ 
+ At least, some steps to improve your *experience*
+ 
+ 1. Use this Playground only on iPad
+ 2. Turn up the volume
+ 3. Put your iPad on a table or an other horizontal surface
+ 4. Run Code
+ 5. Allow camera permission
+ 6. Put your hand on the front camera at 20/30 cm of distance
+ 7. Enjoy
+ 
+ 
+ About me
+ 
+ I’m Vincenzo Aceto. I’m 28 years old and I came from Cosenza (Italy). I’m a student of Apple Developer Academy at Università Federico II. Before this experience I was a mobile developer for an IT Company and I developer many apps for important customers in Android and Xamarin.
+ 
+ To see all the code of this playground, the modelML of my neural network and all the staffs related to this project, follow my GitHub repository at
+
+
  */

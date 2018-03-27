@@ -38,32 +38,24 @@ public class AudioManager: NSObject, AVAudioPlayerDelegate, AVAudioRecorderDeleg
             instrumentCount *= -1
         }
 
-        print("preparingAudioPlayers instrumentCounter: \(instrumentCount)")
-
-
         switch instrumentCount % 5 {
         case InstrumentsEnum.BAND:
-            print("preparingAudioPlayers band")
             prepareURLS(soundFiles: bandSounds)
             break
 
         case InstrumentsEnum.DRUM:
-            print("preparingAudioPlayers drum")
             prepareURLS(soundFiles: drumSounds)
             break
 
         case InstrumentsEnum.GUITAR:
-            print("preparingAudioPlayers guitar")
             prepareURLS(soundFiles: guitarSounds)
             break
 
         case InstrumentsEnum.PIANO:
-            print("preparingAudioPlayers piano")
             prepareURLS(soundFiles: pianoSounds)
             break
 
         default:
-            print("preparingAudioPlayers synth")
             prepareURLS(soundFiles: synthSounds)
             break
         }

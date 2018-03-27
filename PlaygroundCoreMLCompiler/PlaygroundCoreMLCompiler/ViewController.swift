@@ -16,6 +16,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
         let model = hand_recognizer_model()
         AudioManager.sharedInstance.prepareAudioPlayers(instrument: InstrumentsEnum.BAND)

@@ -18,12 +18,16 @@ public class MainView: UIView {
         //let viewWidth = frame.width
         //let viewHeight = frame.height
         
-        let backgroundImageView = UIImageView(image: UIImage(named: "speaker_background"))
-        backgroundImageView.frame = frame
+        let backgroundImageView = UIImageView(frame: CGRect(x:0, y:0, width: frame.width, height: frame.height))
+        backgroundImageView.image = UIImage(named: "speaker_background")
         backgroundImageView.contentMode = .scaleAspectFill
         addSubview(backgroundImageView)
         sendSubview(toBack: backgroundImageView)
-        
+//        
+//        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+//        backgroundImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+//        backgroundImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+
         
         let logoImageView = UIImageView(image: UIImage(named: "logo"))
         addSubview(logoImageView)
@@ -45,7 +49,7 @@ public class MainView: UIView {
         buttonLeft?.translatesAutoresizingMaskIntoConstraints = false
         buttonLeft?.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         buttonLeft?.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        buttonLeft?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.1).isActive = true
+        //buttonLeft?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.1).isActive = true
         
         buttonRight = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
         buttonRight?.backgroundColor = .clear
@@ -56,7 +60,7 @@ public class MainView: UIView {
         buttonRight?.translatesAutoresizingMaskIntoConstraints = false
         buttonRight?.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         buttonRight?.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        buttonRight?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.1).isActive = true
+        //buttonRight?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.1).isActive = true
         
         instrumentImageView = UIImageView(image: UIImage(named: "piano"))
         instrumentImageView?.contentMode = .scaleAspectFit
