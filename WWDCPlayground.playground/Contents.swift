@@ -196,6 +196,30 @@ public class MainViewController:UIViewController{
         logoImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5).isActive = true
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         
+        buttonLeft = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
+        buttonLeft?.backgroundColor = .blue
+        //buttonLeft?.setImage(UIImage(named: "left_button"), for: .normal)
+        buttonLeft?.addTarget(self, action: #selector(buttonLeftPressed), for: .touchUpInside)
+        self.view.addSubview(buttonLeft!)
+        
+        
+        buttonLeft?.translatesAutoresizingMaskIntoConstraints = false
+        buttonLeft?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+        buttonLeft?.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        //buttonLeft?.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
+
+        buttonRight = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
+        buttonRight?.backgroundColor = .blue
+        //buttonRight?.setImage(UIImage(named: "right_button"), for: .normal)
+        buttonRight?.addTarget(self, action: #selector(buttonRightPressed), for: .touchUpInside)
+        
+        self.view.addSubview(buttonRight!)
+        buttonRight?.translatesAutoresizingMaskIntoConstraints = false
+        buttonRight?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10).isActive = true
+        buttonRight?.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        //buttonRight?.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
+
+        
     }
     
     func setupSound() {
