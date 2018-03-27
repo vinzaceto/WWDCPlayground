@@ -7,14 +7,16 @@ public class MainView: UIView {
     var buttonRight: UIButton?
     var buttonRec: UIButton?
     var buttonPlay: UIButton?
+    
+    var previewImage: UIImageView?
 
     var instrumentImageView: UIImageView?
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
         
-        let viewWidth = frame.width
-        let viewHeight = frame.height
+        //let viewWidth = frame.width
+        //let viewHeight = frame.height
         
         let backgroundImageView = UIImageView(image: UIImage(named: "speaker_background"))
         backgroundImageView.frame = frame
@@ -23,7 +25,7 @@ public class MainView: UIView {
         sendSubview(toBack: backgroundImageView)
         
         
-        let logoImageView = UIImageView(image: UIImage(named: "MUchineLearning"))
+        let logoImageView = UIImageView(image: UIImage(named: "logo"))
         addSubview(logoImageView)
         
         
@@ -56,7 +58,7 @@ public class MainView: UIView {
         buttonRight?.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         buttonRight?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.1).isActive = true
         
-        instrumentImageView = UIImageView(image: UIImage(named: "guitar"))
+        instrumentImageView = UIImageView(image: UIImage(named: "piano"))
         instrumentImageView?.contentMode = .scaleAspectFit
         addSubview(instrumentImageView!)
         
@@ -95,16 +97,31 @@ public class MainView: UIView {
         buttonPlay?.topAnchor.constraint(equalTo: instrumentImageView!.lastBaselineAnchor, constant: 50).isActive = true
         buttonPlay?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
         
+        previewImage = UIImageView(image: UIImage(named: "no_hand"))
+        previewImage?.contentMode = .scaleAspectFit
+        addSubview(previewImage!)
+        
+        previewImage?.translatesAutoresizingMaskIntoConstraints = false
+        previewImage?.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 20).isActive = true
+        previewImage?.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 20).isActive = true
+        //previewImage?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
+        
     }
     
     @objc func buttonLeftPressed()
     {
-        print("buttonLeftPressed")
+        print("MainViewButtonLeftPressed")
+        AudioManager.sharedInstance.prepareAudioPlayers(instrument: -1)
+        
+        updateInstrument()
+
     }
     
     @objc func buttonRightPressed()
     {
-        print("buttonRightPressed")
+        print("MainViewButtonRightPressed")
+        AudioManager.sharedInstance.prepareAudioPlayers(instrument: 1)
+        updateInstrument()
     }
     
     @objc func buttonRecPressed()
@@ -129,6 +146,35 @@ public class MainView: UIView {
     
     public required init?(coder aDecoder: NSCoder)
     {super.init(coder: aDecoder)}
+    
+    public func updateInstrument() {
+        var counterInstrument = AudioManager.sharedInstance.instrumentCount
+
+        if counterInstrument < 0 {
+            counterInstrument *= -1
+        }
+        switch counterInstrument % 5 {
+        case InstrumentsEnum.BAND:
+            self.instrumentImageView?.image = UIImage(named: "band")
+            break
+
+        case InstrumentsEnum.DRUM:
+            self.instrumentImageView?.image = UIImage(named: "drum")
+            break
+
+        case InstrumentsEnum.GUITAR:
+            self.instrumentImageView?.image = UIImage(named: "guitar")
+            break
+
+        case InstrumentsEnum.PIANO:
+            self.instrumentImageView?.image = UIImage(named: "piano")
+            break
+        default:
+            self.instrumentImageView?.image = UIImage(named: "sampler")
+
+            break
+        }
+    }
 }
 
 extension UIButton {

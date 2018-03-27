@@ -270,7 +270,7 @@ public class MainViewController:UIViewController{
     }
     
     func setupSound() {
-       AudioManager.sharedInstance.prepareAudioPlayers(instrument: InstrumentsEnum.BAND)
+       AudioManager.sharedInstance.prepareAudioPlayers(instrument: 0)
     }
     
     @objc func buttonLeftPressed()

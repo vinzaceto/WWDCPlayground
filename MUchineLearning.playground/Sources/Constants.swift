@@ -45,10 +45,11 @@ public enum ModelStatesStringEnum {
 }
 
 public enum InstrumentsEnum {
+    public static let SYNTH = 4
+    public static let BAND = 3
     public static let GUITAR = 2
     public static let DRUM = 1
-    public static let BAND = 0
-    
+    public static let PIANO = 0
 }
 
 public enum ModelStatesEnum {
