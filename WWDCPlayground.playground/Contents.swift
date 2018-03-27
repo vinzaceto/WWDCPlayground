@@ -11,12 +11,8 @@ import AVFoundation
 public class MainViewController:UIViewController{
     
     //VIEW COMPONENTS
-    var previewView: PreviewView?
-    
     var buttonLeft: UIButton?
     var buttonRight: UIButton?
-    var labeClassification: UILabel?
-    var sliderFrequency: UISlider?
     
     //VIDEO
     var handDetectionRequest: VNImageBasedRequest!
@@ -79,7 +75,7 @@ public class MainViewController:UIViewController{
                 if session.canAddInput(videoDeviceInput) {
                     session.addInput(videoDeviceInput)
                     self.videoDeviceInput = videoDeviceInput
-                    self.previewView?.videoPreviewLayer.connection!.videoOrientation = .portrait
+                
                 }
             } else {
                 let alert = UIAlertController(title: "NO CAMERA FOUND", message: "This device can't run the Playground", preferredStyle: .alert)
@@ -130,7 +126,6 @@ public class MainViewController:UIViewController{
         // Render Classifications
         DispatchQueue.main.async {
             
-            self.labeClassification?.text = classifications.components(separatedBy: "\n")[1]
             
             //Chosing different sound for different classification
             switch classifications.components(separatedBy: "\n")[1] {
@@ -193,65 +188,14 @@ public class MainViewController:UIViewController{
         backgroundImageView.frame = view.frame
         backgroundImageView.contentMode = .scaleAspectFill
         view.addSubview(logoImageView)
-        
-        
-        let views = ["logoView": logoImageView]
 
-        var constraints = [NSLayoutConstraint]()
-        constraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-25-[logoView]-25-|", options: [], metrics: nil, views: views)
-        constraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-25-[logoView]", options: [], metrics: nil, views: views)
 
-        NSLayoutConstraint.activate(constraints)
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logoImageView.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: 10).isActive = true
+        logoImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5).isActive = true
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
         
-    logoImageView.translatesAutoresizingMaskIntoConstraints = false
-//        let internalView = UIView()
-//        internalView.frame = CGRect(x: 0, y:0, width: 500, height: 500)
-//        internalView.backgroundColor = .brown
-//        self.view.addSubview(internalView)
-//
-//        buttonLeft = UIButton.init(frame:CGRect.init(x:0, y: 0, width: 50, height:50))
-//        buttonLeft?.backgroundColor = .white
-//        buttonLeft?.addTarget(self, action: #selector(buttonLeftPressed), for: .touchUpInside)
-//
-//
-//        buttonRight = UIButton.init(frame:CGRect.init(x: 0, y: 0, width: 50, height:50))
-//        buttonRight?.backgroundColor = .white
-//        buttonRight?.addTarget(self, action: #selector(buttonRightPressed), for: .touchUpInside)
-//
-//        internalView.addSubview(buttonLeft!)
-//        internalView.addSubview(buttonRight!)
-//
-//        buttonRight?.translatesAutoresizingMaskIntoConstraints = false
-//        buttonRight?.centerXAnchor.constraint(equalTo: internalView.centerXAnchor).isActive = true
-//        buttonRight?.centerYAnchor.constraint(equalTo: internalView.centerYAnchor).isActive = true
-//
-//        buttonRight?.topAnchor.constraint(equalTo: internalView.topAnchor, constant: 50).isActive = true
-//        buttonRight?.leadingAnchor.constraint(equalTo: internalView.leadingAnchor, constant: 50).isActive = true
-//
-//        self.labeClassification = UILabel.init(frame: CGRect.init(x: internalView.frame.width/2 - 50, y: internalView.frame.height/2 - 25, width: 100, height: 50))
-//        self.labeClassification?.backgroundColor = UIColor.clear
-//        self.labeClassification?.font = UIFont.systemFont(ofSize: 20)
-//        internalView.addSubview(self.labeClassification!)
-//
-//        let views = ["internalView": internalView]
-//
-//        var constraints = [NSLayoutConstraint]()
-//        constraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|-25-[internalView]-25-|", options: [], metrics: nil, views:views)
-//        constraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|-25-[internalView]-25-|", options: [], metrics: nil, views:views)
-//
-//        NSLayoutConstraint.activate(constraints)
-//
-//        internalView.translatesAutoresizingMaskIntoConstraints = false
-//        internalView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        internalView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//    
-//        internalView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 100).isActive = true
-//        internalView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
-
-        previewView = PreviewView()
-        previewView?.session = session
-        
-        //internalView.addSubview(previewView!)
     }
     
     func setupSound() {
