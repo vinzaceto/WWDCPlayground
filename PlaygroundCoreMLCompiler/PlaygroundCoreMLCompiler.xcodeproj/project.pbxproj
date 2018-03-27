@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		740D52F1206A4194009CC79B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D52F0206A4194009CC79B /* MainView.swift */; };
 		743A9DEC2064EF7D00D843B0 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A9DEB2064EF7D00D843B0 /* AudioManager.swift */; };
 		743A9DEE2064FA3500D843B0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743A9DED2064FA3500D843B0 /* Constants.swift */; };
 		743A9DF22065112500D843B0 /* guitar_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 743A9DEF2065112400D843B0 /* guitar_2.wav */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		740D52F0206A4194009CC79B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		743A9DEB2064EF7D00D843B0 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		743A9DED2064FA3500D843B0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		743A9DEF2065112400D843B0 /* guitar_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = guitar_2.wav; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				743A9DF02065112400D843B0 /* guitar_1.wav */,
 				743A9DEF2065112400D843B0 /* guitar_2.wav */,
 				743A9DF12065112500D843B0 /* guitar_3.wav */,
+				740D52F0206A4194009CC79B /* MainView.swift */,
 			);
 			path = PlaygroundCoreMLCompiler;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74A3998D20615CE6001F0776 /* ViewController.swift in Sources */,
+				740D52F1206A4194009CC79B /* MainView.swift in Sources */,
 				74A3999D20615D0B001F0776 /* hand_recognizer_model.mlmodel in Sources */,
 				74B23B1D2063EDA000A6CF7E /* hand_recognizer_model_2.mlmodel in Sources */,
 				743A9DEC2064EF7D00D843B0 /* AudioManager.swift in Sources */,

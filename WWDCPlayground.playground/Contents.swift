@@ -13,6 +13,7 @@ public class MainViewController:UIViewController{
     //VIEW COMPONENTS
     var buttonLeft: UIButton?
     var buttonRight: UIButton?
+    var instrumentImageView: UIImageView?
     
     //VIDEO
     var handDetectionRequest: VNImageBasedRequest!
@@ -29,11 +30,14 @@ public class MainViewController:UIViewController{
     private var videoDataOutput: AVCaptureVideoDataOutput!
     private var videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
     
+    public override func loadView() {
+        self.view = MainView.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    }
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setUpView()
+        //setUpView()
+
         setUpCoreMLModel()
         setupVision()
         setupSound()
@@ -178,48 +182,91 @@ public class MainViewController:UIViewController{
     }
     
     func setUpView() {
+        let myView = UIView()
+        
         let backgroundImageView = UIImageView(image: UIImage(named: "speaker_background"))
-        backgroundImageView.frame = view.frame
+        backgroundImageView.frame = myView.frame
         backgroundImageView.contentMode = .scaleAspectFill
-        view.addSubview(backgroundImageView)
-        view.sendSubview(toBack: backgroundImageView)
+        myView.addSubview(backgroundImageView)
+        myView.sendSubview(toBack: backgroundImageView)
+        
 
         let logoImageView = UIImageView(image: UIImage(named: "MUchineLearning"))
-        backgroundImageView.frame = view.frame
-        backgroundImageView.contentMode = .scaleAspectFill
-        view.addSubview(logoImageView)
+        myView.addSubview(logoImageView)
 
 
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        logoImageView.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor, constant: 10).isActive = true
-        logoImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5).isActive = true
+        logoImageView.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
+        logoImageView.topAnchor.constraint(greaterThanOrEqualTo: myView.topAnchor, constant: 10).isActive = true
+        logoImageView.widthAnchor.constraint(equalTo: myView.widthAnchor, multiplier: 0.5).isActive = true
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         
         buttonLeft = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
         buttonLeft?.backgroundColor = .blue
         //buttonLeft?.setImage(UIImage(named: "left_button"), for: .normal)
         buttonLeft?.addTarget(self, action: #selector(buttonLeftPressed), for: .touchUpInside)
-        self.view.addSubview(buttonLeft!)
+        myView.addSubview(buttonLeft!)
         
         
         buttonLeft?.translatesAutoresizingMaskIntoConstraints = false
-        buttonLeft?.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-        buttonLeft?.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        //buttonLeft?.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
+        buttonLeft?.leadingAnchor.constraint(equalTo: myView.leadingAnchor, constant: 10).isActive = true
+        buttonLeft?.centerYAnchor.constraint(equalTo: myView.centerYAnchor).isActive = true
+        buttonLeft?.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
 
         buttonRight = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
         buttonRight?.backgroundColor = .blue
         //buttonRight?.setImage(UIImage(named: "right_button"), for: .normal)
         buttonRight?.addTarget(self, action: #selector(buttonRightPressed), for: .touchUpInside)
         
-        self.view.addSubview(buttonRight!)
+        myView.addSubview(buttonRight!)
         buttonRight?.translatesAutoresizingMaskIntoConstraints = false
-        buttonRight?.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10).isActive = true
-        buttonRight?.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        //buttonRight?.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
+        buttonRight?.trailingAnchor.constraint(equalTo: myView.trailingAnchor, constant: 10).isActive = true
+        buttonRight?.centerYAnchor.constraint(equalTo: myView.centerYAnchor).isActive = true
+        buttonRight?.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
+        
+        instrumentImageView = UIImageView(image: UIImage(named: "MUchineLearning"))
+        instrumentImageView?.contentMode = .scaleAspectFit
+        myView.addSubview(instrumentImageView!)
+        
+        instrumentImageView?.translatesAutoresizingMaskIntoConstraints = false
+        instrumentImageView?.centerYAnchor.constraint(equalTo: myView.centerYAnchor).isActive = true
+        instrumentImageView?.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
+        
+        instrumentImageView?.leadingAnchor.constraint(greaterThanOrEqualTo: (buttonLeft?.trailingAnchor)!, constant: 10).isActive = true
+        
+        instrumentImageView?.trailingAnchor.constraint(greaterThanOrEqualTo: (buttonRight?.leadingAnchor)!, constant: 10).isActive = true
+        
+        instrumentImageView?.widthAnchor.constraint(equalTo: myView.widthAnchor, multiplier: 0.5).isActive = true
+
+        let buttonRec = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
+        buttonRec.backgroundColor = .white
+        //buttonRec.setImage(UIImage(named: "rec_disabled"), for: .normal)
+        buttonRec.addTarget(self, action: #selector(buttonRecPressed), for: .touchUpInside)
+        
+        myView.addSubview(buttonRec)
+        
+        buttonRec.translatesAutoresizingMaskIntoConstraints = false
+        buttonRec.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor).isActive = true
+        buttonRec.topAnchor.constraint(equalTo: instrumentImageView!.lastBaselineAnchor, constant: 50).isActive = true
+        buttonRec.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
+
+    
+                let buttonPlay = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
+                buttonPlay.backgroundColor = .white
+                //buttonPlay.setImage(UIImage(named: "play_disabled"), for: .normal)
+                buttonPlay.addTarget(self, action: #selector(buttonPlayPressed), for: .touchUpInside)
+
+                myView.addSubview(buttonPlay)
+
+                buttonPlay.translatesAutoresizingMaskIntoConstraints = false
+                buttonPlay.leadingAnchor.constraint(equalTo: logoImageView.leadingAnchor).isActive = true
+                buttonPlay.topAnchor.constraint(equalTo: instrumentImageView!.lastBaselineAnchor, constant: 50).isActive = true
+        buttonPlay.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
 
         
+
+        
+        self.view = myView
     }
     
     func setupSound() {
@@ -238,10 +285,14 @@ public class MainViewController:UIViewController{
         PlaygroundManager.shared.currentFrequency += 10
     }
     
-    @objc func sliderValueDidChange(_ sender:UISlider!)
+    @objc func buttonRecPressed()
     {
-        print("FrequencySlider value: \(sender.value)")
-        PlaygroundManager.shared.currentFrequency = Double(sender.value)
+        print("buttonRecPressed")
+    }
+    
+    @objc func buttonPlayPressed()
+    {
+        print("buttonPlayPressed")
     }
     
 }
