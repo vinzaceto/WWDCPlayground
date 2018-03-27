@@ -5,7 +5,6 @@ import PlaygroundSupport
 import Vision
 import AVFoundation
 
-//#-end-hidden-code
 
 
 public class MainViewController:UIViewController{
@@ -36,7 +35,6 @@ public class MainViewController:UIViewController{
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-        //setUpView()
 
         setUpCoreMLModel()
         setupVision()
@@ -135,34 +133,58 @@ public class MainViewController:UIViewController{
             switch classifications.components(separatedBy: "\n")[1] {
             case ModelStatesStringEnum.HAND:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"hand_0")
+                }
                 break
 
+            case ModelStatesStringEnum.HAND_0:
+                AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_0)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"hand_0")
+                }
+                break
             case ModelStatesStringEnum.HAND_1:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_1)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"hand_1")
+                }
                 break
 
             case ModelStatesStringEnum.HAND_2:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_2)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"hand_2")
+                }
                 break
 
             case ModelStatesStringEnum.HAND_3:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_3)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"hand_3")
+                }
                 break
 
             case ModelStatesStringEnum.HAND_4:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_4)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"hand_4")
+                }
                 break
                 
 
             case ModelStatesStringEnum.HAND_5:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_5)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"hand_5")
+                }
                 break
 
-            case ModelStatesStringEnum.HAND_6:
-                AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_6)
-                break
             default:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.CEILING)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"no_hand")
+                }
                 break
             }
             
@@ -179,94 +201,6 @@ public class MainViewController:UIViewController{
         handDetectionRequest = VNCoreMLRequest(model: selectedModel, completionHandler: classificationCompleteHandler)
         
         requests = [handDetectionRequest]
-    }
-    
-    func setUpView() {
-        let myView = UIView()
-        
-        let backgroundImageView = UIImageView(image: UIImage(named: "speaker_background"))
-        backgroundImageView.frame = myView.frame
-        backgroundImageView.contentMode = .scaleAspectFill
-        myView.addSubview(backgroundImageView)
-        myView.sendSubview(toBack: backgroundImageView)
-        
-
-        let logoImageView = UIImageView(image: UIImage(named: "MUchineLearning"))
-        myView.addSubview(logoImageView)
-
-
-        logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        logoImageView.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
-        logoImageView.topAnchor.constraint(greaterThanOrEqualTo: myView.topAnchor, constant: 10).isActive = true
-        logoImageView.widthAnchor.constraint(equalTo: myView.widthAnchor, multiplier: 0.5).isActive = true
-        logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        buttonLeft = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
-        buttonLeft?.backgroundColor = .blue
-        //buttonLeft?.setImage(UIImage(named: "left_button"), for: .normal)
-        buttonLeft?.addTarget(self, action: #selector(buttonLeftPressed), for: .touchUpInside)
-        myView.addSubview(buttonLeft!)
-        
-        
-        buttonLeft?.translatesAutoresizingMaskIntoConstraints = false
-        buttonLeft?.leadingAnchor.constraint(equalTo: myView.leadingAnchor, constant: 10).isActive = true
-        buttonLeft?.centerYAnchor.constraint(equalTo: myView.centerYAnchor).isActive = true
-        buttonLeft?.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
-
-        buttonRight = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
-        buttonRight?.backgroundColor = .blue
-        //buttonRight?.setImage(UIImage(named: "right_button"), for: .normal)
-        buttonRight?.addTarget(self, action: #selector(buttonRightPressed), for: .touchUpInside)
-        
-        myView.addSubview(buttonRight!)
-        buttonRight?.translatesAutoresizingMaskIntoConstraints = false
-        buttonRight?.trailingAnchor.constraint(equalTo: myView.trailingAnchor, constant: 10).isActive = true
-        buttonRight?.centerYAnchor.constraint(equalTo: myView.centerYAnchor).isActive = true
-        buttonRight?.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
-        
-        instrumentImageView = UIImageView(image: UIImage(named: "MUchineLearning"))
-        instrumentImageView?.contentMode = .scaleAspectFit
-        myView.addSubview(instrumentImageView!)
-        
-        instrumentImageView?.translatesAutoresizingMaskIntoConstraints = false
-        instrumentImageView?.centerYAnchor.constraint(equalTo: myView.centerYAnchor).isActive = true
-        instrumentImageView?.centerXAnchor.constraint(equalTo: myView.centerXAnchor).isActive = true
-        
-        instrumentImageView?.leadingAnchor.constraint(greaterThanOrEqualTo: (buttonLeft?.trailingAnchor)!, constant: 10).isActive = true
-        
-        instrumentImageView?.trailingAnchor.constraint(greaterThanOrEqualTo: (buttonRight?.leadingAnchor)!, constant: 10).isActive = true
-        
-        instrumentImageView?.widthAnchor.constraint(equalTo: myView.widthAnchor, multiplier: 0.5).isActive = true
-
-        let buttonRec = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
-        buttonRec.backgroundColor = .white
-        //buttonRec.setImage(UIImage(named: "rec_disabled"), for: .normal)
-        buttonRec.addTarget(self, action: #selector(buttonRecPressed), for: .touchUpInside)
-        
-        myView.addSubview(buttonRec)
-        
-        buttonRec.translatesAutoresizingMaskIntoConstraints = false
-        buttonRec.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor).isActive = true
-        buttonRec.topAnchor.constraint(equalTo: instrumentImageView!.lastBaselineAnchor, constant: 50).isActive = true
-        buttonRec.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
-
-    
-                let buttonPlay = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
-                buttonPlay.backgroundColor = .white
-                //buttonPlay.setImage(UIImage(named: "play_disabled"), for: .normal)
-                buttonPlay.addTarget(self, action: #selector(buttonPlayPressed), for: .touchUpInside)
-
-                myView.addSubview(buttonPlay)
-
-                buttonPlay.translatesAutoresizingMaskIntoConstraints = false
-                buttonPlay.leadingAnchor.constraint(equalTo: logoImageView.leadingAnchor).isActive = true
-                buttonPlay.topAnchor.constraint(equalTo: instrumentImageView!.lastBaselineAnchor, constant: 50).isActive = true
-        buttonPlay.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1).isActive = true
-
-        
-
-        
-        self.view = myView
     }
     
     func setupSound() {
@@ -332,6 +266,8 @@ extension MainViewController: AVCaptureVideoDataOutputSampleBufferDelegate{
 let viewController = MainViewController()
 PlaygroundPage.current.liveView = viewController
 PlaygroundPage.current.needsIndefiniteExecution = true
+//#-end-hidden-code
+
 /*:
  ## Let's start
  **Put your hand on top of the camera**!

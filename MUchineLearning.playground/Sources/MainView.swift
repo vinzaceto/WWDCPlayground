@@ -8,7 +8,7 @@ public class MainView: UIView {
     var buttonRec: UIButton?
     var buttonPlay: UIButton?
     
-    var previewImage: UIImageView?
+    public var previewImage: UIImageView?
 
     var instrumentImageView: UIImageView?
     
@@ -32,7 +32,7 @@ public class MainView: UIView {
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         logoImageView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 10).isActive = true
-        logoImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
+//        logoImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         
         buttonLeft = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
@@ -43,7 +43,7 @@ public class MainView: UIView {
         
         
         buttonLeft?.translatesAutoresizingMaskIntoConstraints = false
-        buttonLeft?.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        buttonLeft?.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         buttonLeft?.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         buttonLeft?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.1).isActive = true
         
@@ -54,7 +54,7 @@ public class MainView: UIView {
         
         addSubview(buttonRight!)
         buttonRight?.translatesAutoresizingMaskIntoConstraints = false
-        buttonRight?.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 10).isActive = true
+        buttonRight?.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         buttonRight?.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         buttonRight?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.1).isActive = true
         
@@ -65,45 +65,43 @@ public class MainView: UIView {
         instrumentImageView?.translatesAutoresizingMaskIntoConstraints = false
         instrumentImageView?.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         instrumentImageView?.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        
-        instrumentImageView?.leadingAnchor.constraint(greaterThanOrEqualTo: (buttonLeft?.trailingAnchor)!, constant: 10).isActive = true
-        
-        instrumentImageView?.trailingAnchor.constraint(greaterThanOrEqualTo: (buttonRight?.leadingAnchor)!, constant: 10).isActive = true
-        
-        instrumentImageView?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
-        
+
+/* TWO Button to add rec and play function in the future
+         
         buttonRec = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
         buttonRec?.backgroundColor = .clear
         buttonRec?.setImage(UIImage(named: "rec_disabled"), for: .normal)
         buttonRec?.addTarget(self, action: #selector(buttonRecPressed), for: .touchUpInside)
-        
+
         addSubview(buttonRec!)
-        
+
         buttonRec?.translatesAutoresizingMaskIntoConstraints = false
         buttonRec?.trailingAnchor.constraint(equalTo: instrumentImageView!.trailingAnchor).isActive = true
         buttonRec?.topAnchor.constraint(equalTo: instrumentImageView!.lastBaselineAnchor, constant: 50).isActive = true
         buttonRec?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
-        
-        
+
+
         buttonPlay = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
         buttonPlay?.backgroundColor = .clear
         buttonPlay?.setImage(UIImage(named: "play_disabled"), for: .normal)
         buttonPlay?.addTarget(self, action: #selector(buttonPlayPressed), for: .touchUpInside)
-        
+
         addSubview(buttonPlay!)
-        
+
         buttonPlay?.translatesAutoresizingMaskIntoConstraints = false
         buttonPlay?.leadingAnchor.constraint(equalTo: instrumentImageView!.leadingAnchor).isActive = true
         buttonPlay?.topAnchor.constraint(equalTo: instrumentImageView!.lastBaselineAnchor, constant: 50).isActive = true
         buttonPlay?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
+ */
         
         previewImage = UIImageView(image: UIImage(named: "no_hand"))
         previewImage?.contentMode = .scaleAspectFit
         addSubview(previewImage!)
         
         previewImage?.translatesAutoresizingMaskIntoConstraints = false
-        previewImage?.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 20).isActive = true
-        previewImage?.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 20).isActive = true
+        previewImage?.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        previewImage?.topAnchor.constraint(greaterThanOrEqualTo: instrumentImageView!.lastBaselineAnchor).isActive = true
+        previewImage?.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor).isActive = true
         //previewImage?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
         
     }
@@ -129,8 +127,11 @@ public class MainView: UIView {
         print("buttonRecPressed")
         if self.buttonRec!.hasImage(named: "rec_enabled", for: .normal) {
             self.buttonRec?.setImage(UIImage(named: "rec_disabled"), for: .normal)
+            AudioManager.sharedInstance.stopRecording(success: true)
             } else {
             self.buttonRec?.setImage(UIImage(named: "rec_enabled"), for: .normal)
+            AudioManager.sharedInstance.prepareRecorder()
+            AudioManager.sharedInstance.startRecording()
         }
     }
     
@@ -139,8 +140,10 @@ public class MainView: UIView {
         print("buttonPlayPressed")
         if self.buttonPlay!.hasImage(named: "play_enabled", for: .normal) {
             self.buttonPlay?.setImage(UIImage(named: "play_disabled"), for: .normal)
+            AudioManager.sharedInstance.playRecordedFile(inProgress: true)
         } else {
             self.buttonPlay?.setImage(UIImage(named: "play_enabled"), for: .normal)
+            AudioManager.sharedInstance.playRecordedFile(inProgress: false)
         }
     }
     

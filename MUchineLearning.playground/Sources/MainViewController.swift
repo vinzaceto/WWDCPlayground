@@ -4,15 +4,12 @@ import Vision
 import AVFoundation
 
 
-private class MainViewController:UIViewController{
+public class MainViewController:UIViewController{
     
     //VIEW COMPONENTS
-    var previewView: PreviewView?
-    
     var buttonLeft: UIButton?
     var buttonRight: UIButton?
-    var labeClassification: UILabel?
-    var sliderFrequency: UISlider?
+    var instrumentImageView: UIImageView?
     
     //VIDEO
     var handDetectionRequest: VNImageBasedRequest!
@@ -29,19 +26,19 @@ private class MainViewController:UIViewController{
     private var videoDataOutput: AVCaptureVideoDataOutput!
     private var videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
     
-    
+    public override func loadView() {
+        self.view = MainView.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpView()
         setUpCoreMLModel()
         setupVision()
         setupSound()
         
         self.configureVideoSession()
         self.session.startRunning()
-        
         
     }
     
@@ -77,7 +74,7 @@ private class MainViewController:UIViewController{
                 if session.canAddInput(videoDeviceInput) {
                     session.addInput(videoDeviceInput)
                     self.videoDeviceInput = videoDeviceInput
-                    self.previewView?.videoPreviewLayer.connection!.videoOrientation = .portrait
+                    
                 }
             } else {
                 let alert = UIAlertController(title: "NO CAMERA FOUND", message: "This device can't run the Playground", preferredStyle: .alert)
@@ -128,48 +125,63 @@ private class MainViewController:UIViewController{
         // Render Classifications
         DispatchQueue.main.async {
             
-            self.labeClassification?.text = classifications.components(separatedBy: "\n")[1]
-            
-            //            switch classifications.components(separatedBy: "\n")[1] {
-            //            case ModelStatesStringEnum.HAND:
-            //                AudioManager.sharedInstance.playSoundFromGesture(gesture: ModelStatesEnum.HAND_1)
-            //            default:
-            //                AudioManager.sharedInstance.playSoundFromGesture(gesture: ModelStatesEnum.HAND)
-            //
-            //            }
             
             //Chosing different sound for different classification
             switch classifications.components(separatedBy: "\n")[1] {
             case ModelStatesStringEnum.HAND:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"hand_0")
+                }
                 break
                 
+            case ModelStatesStringEnum.HAND_0:
+                AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_0)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"hand_0")
+                }
+                break
             case ModelStatesStringEnum.HAND_1:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_1)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"hand_1")
+                }
                 break
                 
             case ModelStatesStringEnum.HAND_2:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_2)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"hand_2")
+                }
                 break
                 
             case ModelStatesStringEnum.HAND_3:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_3)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"hand_3")
+                }
                 break
                 
             case ModelStatesStringEnum.HAND_4:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_4)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"hand_4")
+                }
                 break
                 
                 
             case ModelStatesStringEnum.HAND_5:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_5)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"hand_5")
+                }
                 break
                 
-            case ModelStatesStringEnum.HAND_6:
-                AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND_6)
-                break
             default:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.CEILING)
+                if let preview = self.view as? MainView {
+                    preview.previewImage?.image = UIImage(named:"no_hand")
+                }
                 break
             }
             
@@ -188,52 +200,8 @@ private class MainViewController:UIViewController{
         requests = [handDetectionRequest]
     }
     
-    func setUpView() {
-        
-        self.view = UIView()
-        
-        let internalView = UIView()
-        internalView.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
-        internalView.bounds = CGRect(x: 0, y: 0, width: 500, height: 500)
-        internalView.backgroundColor = .brown
-        
-        self.view.addSubview(internalView)
-        
-        buttonLeft = UIButton.init(frame:CGRect.init(x: 50, y: 130, width: 50, height:50))
-        buttonLeft?.backgroundColor = .white
-        buttonLeft?.addTarget(self, action: #selector(buttonLeftPressed), for: .touchUpInside)
-        
-        
-        buttonRight = UIButton.init(frame:CGRect.init(x: self.view.frame.width - 50, y: 130, width: 50, height:50))
-        buttonRight?.backgroundColor = .white
-        buttonRight?.addTarget(self, action: #selector(buttonRightPressed), for: .touchUpInside)
-        
-        internalView.addSubview(buttonLeft!)
-        internalView.addSubview(buttonRight!)
-        
-        sliderFrequency = UISlider.init(frame: CGRect.init(x: self.view.frame.width/2, y: self.view.frame.height/2, width: 300, height:50))
-        
-        sliderFrequency?.minimumValue = -5.0
-        sliderFrequency?.maximumValue = 5.0
-        sliderFrequency?.addTarget(self, action: #selector(sliderValueDidChange(_:)), for: .valueChanged)
-        
-        internalView.addSubview(sliderFrequency!)
-        
-        self.labeClassification = UILabel.init(frame: CGRect.init(x: self.view.frame.width/2, y: self.view.frame.height/3, width: 100, height: 50))
-        self.labeClassification?.backgroundColor = UIColor.clear
-        self.labeClassification?.font = UIFont.systemFont(ofSize: 20)
-        internalView.addSubview(self.labeClassification!)
-        
-        
-        
-        previewView = PreviewView()
-        previewView?.session = session
-        
-        internalView.addSubview(previewView!)
-    }
-    
     func setupSound() {
-        AudioManager.sharedInstance.prepareAudioPlayers(instrument: InstrumentsEnum.BAND)
+        AudioManager.sharedInstance.prepareAudioPlayers(instrument: 0)
     }
     
     @objc func buttonLeftPressed()
@@ -248,10 +216,14 @@ private class MainViewController:UIViewController{
         PlaygroundManager.shared.currentFrequency += 10
     }
     
-    @objc func sliderValueDidChange(_ sender:UISlider!)
+    @objc func buttonRecPressed()
     {
-        print("FrequencySlider value: \(sender.value)")
-        PlaygroundManager.shared.currentFrequency = Double(sender.value)
+        print("buttonRecPressed")
+    }
+    
+    @objc func buttonPlayPressed()
+    {
+        print("buttonPlayPressed")
     }
     
 }

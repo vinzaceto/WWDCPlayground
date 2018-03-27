@@ -31,7 +31,6 @@ public enum TonesEnum {
 
 public enum ModelStatesStringEnum {
     
-    public static let NO_CEILING = "no_ceiling"
     public static let NO_HAND = "no_hand"
     public static let HAND = "hand"
     public static let CEILING = "ceiling"
@@ -41,7 +40,6 @@ public enum ModelStatesStringEnum {
     public static let HAND_3 = "hand_3"
     public static let HAND_4 = "hand_4"
     public static let HAND_5 = "hand_5"
-    public static let HAND_6 = "hand_6"
 }
 
 public enum InstrumentsEnum {
@@ -54,7 +52,6 @@ public enum InstrumentsEnum {
 
 public enum ModelStatesEnum {
     
-    public static let NO_CEILING = -1
     public static let NO_HAND = -1
     public static let HAND = -1
     public static let CEILING = -1
@@ -64,6 +61,5 @@ public enum ModelStatesEnum {
     public static let HAND_3 = 3
     public static let HAND_4 = 4
     public static let HAND_5 = 5
-    public static let HAND_6 = 6
 }
 
