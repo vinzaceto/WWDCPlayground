@@ -11,18 +11,18 @@ if #available(iOSApplicationExtension 11.0, *) {
     PlaygroundPage.current.liveView = viewController
     PlaygroundPage.current.needsIndefiniteExecution = true
 } else {
-    print("RUN this Playbook on iPad with iOS 11")
+    print("Run this Playbook on iPad with iOS 11")
 }
 //#-end-hidden-code
 /*:
- ## Let's start
- **Just tap Run Code
- 
- - - -
- */
+ # Let's start
+ ### Just tap Run Code
 
-/*:
- MUchineLearning (_MUsic Machine_ and _Machine Learning_) let you play music with the gestures of your hand!
+ ---
+ 
+ # MUchineLearning
+ ## (_MUsic Machine_ and _Machine Learning_)
+ ### let you play music with the gestures of your hand!
  
  Try to discover all the possible combinations of gestures  and instruments you can have fun with!
  

@@ -29,7 +29,7 @@ public class MainView: UIView {
 //        backgroundImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 
         
-        let logoImageView = UIImageView(image: UIImage(named: "logo"))
+        let logoImageView = UIImageView(image: UIImage(named: "LOGO"))
         addSubview(logoImageView)
         
         
@@ -103,9 +103,10 @@ public class MainView: UIView {
         addSubview(previewImage!)
         
         previewImage?.translatesAutoresizingMaskIntoConstraints = false
-        previewImage?.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        //previewImage?.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         previewImage?.topAnchor.constraint(greaterThanOrEqualTo: instrumentImageView!.lastBaselineAnchor).isActive = true
         previewImage?.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor).isActive = true
+        previewImage?.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         //previewImage?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
         
     }
