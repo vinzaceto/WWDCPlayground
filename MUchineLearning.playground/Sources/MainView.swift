@@ -19,7 +19,7 @@ public class MainView: UIView {
         //let viewHeight = frame.height
         
         let backgroundImageView = UIImageView(frame: CGRect(x:0, y:0, width: frame.width, height: frame.height))
-        backgroundImageView.image = UIImage(named: "speaker_background")
+        backgroundImageView.image = UIImage(named: "metal")
         backgroundImageView.contentMode = .scaleAspectFill
         addSubview(backgroundImageView)
         sendSubview(toBack: backgroundImageView)
