@@ -69,34 +69,6 @@ public class MainView: UIView {
         instrumentImageView?.translatesAutoresizingMaskIntoConstraints = false
         instrumentImageView?.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         instrumentImageView?.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-
-/* TWO Button to add rec and play function in the future
-         
-        buttonRec = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
-        buttonRec?.backgroundColor = .clear
-        buttonRec?.setImage(UIImage(named: "rec_disabled"), for: .normal)
-        buttonRec?.addTarget(self, action: #selector(buttonRecPressed), for: .touchUpInside)
-
-        addSubview(buttonRec!)
-
-        buttonRec?.translatesAutoresizingMaskIntoConstraints = false
-        buttonRec?.trailingAnchor.constraint(equalTo: instrumentImageView!.trailingAnchor).isActive = true
-        buttonRec?.topAnchor.constraint(equalTo: instrumentImageView!.lastBaselineAnchor, constant: 50).isActive = true
-        buttonRec?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
-
-
-        buttonPlay = UIButton.init(frame: CGRect.init(x: 0, y: 0, width: 50, height: 50))
-        buttonPlay?.backgroundColor = .clear
-        buttonPlay?.setImage(UIImage(named: "play_disabled"), for: .normal)
-        buttonPlay?.addTarget(self, action: #selector(buttonPlayPressed), for: .touchUpInside)
-
-        addSubview(buttonPlay!)
-
-        buttonPlay?.translatesAutoresizingMaskIntoConstraints = false
-        buttonPlay?.leadingAnchor.constraint(equalTo: instrumentImageView!.leadingAnchor).isActive = true
-        buttonPlay?.topAnchor.constraint(equalTo: instrumentImageView!.lastBaselineAnchor, constant: 50).isActive = true
-        buttonPlay?.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
- */
         
         previewImage = UIImageView(image: UIImage(named: "no_hand"))
         previewImage?.contentMode = .scaleAspectFit
@@ -125,31 +97,6 @@ public class MainView: UIView {
         print("MainViewButtonRightPressed")
         AudioManager.sharedInstance.prepareAudioPlayers(instrument: 1)
         updateInstrument()
-    }
-    
-    @objc func buttonRecPressed()
-    {
-        print("buttonRecPressed")
-        if self.buttonRec!.hasImage(named: "rec_enabled", for: .normal) {
-            self.buttonRec?.setImage(UIImage(named: "rec_disabled"), for: .normal)
-            AudioManager.sharedInstance.stopRecording(success: true)
-            } else {
-            self.buttonRec?.setImage(UIImage(named: "rec_enabled"), for: .normal)
-            AudioManager.sharedInstance.prepareRecorder()
-            AudioManager.sharedInstance.startRecording()
-        }
-    }
-    
-    @objc func buttonPlayPressed()
-    {
-        print("buttonPlayPressed")
-        if self.buttonPlay!.hasImage(named: "play_enabled", for: .normal) {
-            self.buttonPlay?.setImage(UIImage(named: "play_disabled"), for: .normal)
-            AudioManager.sharedInstance.playRecordedFile(inProgress: true)
-        } else {
-            self.buttonPlay?.setImage(UIImage(named: "play_enabled"), for: .normal)
-            AudioManager.sharedInstance.playRecordedFile(inProgress: false)
-        }
     }
     
     public required init?(coder aDecoder: NSCoder)

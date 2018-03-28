@@ -5,30 +5,6 @@
 
 import Foundation
 
-public enum AudioEnum {
-    public static let SAMPLE_RATE = 44_100.0
-    public static let FREQUENCY = 130.0
-    public static let AMPLITUDE = 0.25
-    public static let THETA = 0.0
-    public static let BUFFER_CAPACITY = 512
-}
-
-public enum TonesEnum {
-    public static let NO_CEILING : Double = 0.0
-    public static let NO_HAND : Double = 0.1
-    public static let HAND : Double = 0.1
-    public static let CEILING : Double = 0.0
-
-    public static let HAND_0 : Double = 0.0
-    public static let HAND_1 : Double = 1.0
-    public static let HAND_2 : Double = 2.0
-    public static let HAND_3 : Double = 3.0
-    public static let HAND_4 : Double = 4.0
-    public static let HAND_5 : Double = 5.0
-    public static let HAND_6 : Double = 6.0
-
-}
-
 public enum ModelStatesStringEnum {
     
     public static let NO_HAND = "no_hand"

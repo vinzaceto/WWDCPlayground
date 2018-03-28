@@ -6,11 +6,6 @@ import AVFoundation
 @available(iOS 11.0, *)
 public class MainViewController:UIViewController{
     
-    //VIEW COMPONENTS
-    var buttonLeft: UIButton?
-    var buttonRight: UIButton?
-    var instrumentImageView: UIImageView?
-    
     //VIDEO
     var handDetectionRequest: VNImageBasedRequest!
     private var requests = [VNRequest]()
@@ -127,6 +122,7 @@ public class MainViewController:UIViewController{
             
             
             //Chosing different sound for different classification
+            // I choose the second classification because the first is the tag HAND and is unusful
             switch classifications.components(separatedBy: "\n")[1] {
             case ModelStatesStringEnum.HAND:
                 AudioManager.sharedInstance.playSoundFromArray(gesture: ModelStatesEnum.HAND)
@@ -202,28 +198,6 @@ public class MainViewController:UIViewController{
     
     func setupSound() {
         AudioManager.sharedInstance.prepareAudioPlayers(instrument: 0)
-    }
-    
-    @objc func buttonLeftPressed()
-    {
-        print("buttonLeftPressed")
-        PlaygroundManager.shared.currentFrequency -= 10
-    }
-    
-    @objc func buttonRightPressed()
-    {
-        print("buttonRightPressed")
-        PlaygroundManager.shared.currentFrequency += 10
-    }
-    
-    @objc func buttonRecPressed()
-    {
-        print("buttonRecPressed")
-    }
-    
-    @objc func buttonPlayPressed()
-    {
-        print("buttonPlayPressed")
     }
     
 }
