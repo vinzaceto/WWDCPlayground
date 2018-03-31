@@ -186,7 +186,7 @@ public class MainViewController:UIViewController{
     
     func setUpCoreMLModel() {
         
-        // Choose the model to use with Vision
+        // Choose the model to use with Vision (hand_recognizer_model_3)
         guard let selectedModel = try? VNCoreMLModel(for: hand_recognizer_model_3().model) else {
             fatalError("Could not load model.")
         }

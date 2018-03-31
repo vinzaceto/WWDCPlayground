@@ -107,7 +107,9 @@ public class AudioManager: NSObject, AVAudioPlayerDelegate {
     public func playSoundFromArray(gesture: Int) {
 
         for i in 0 ... myPlayers.count - 1 {
-            if gesture > 0 {
+            
+            // if i choose gesture > 0 i decide to not reproduce sound with hand closed
+            if gesture >= 0 {
                 if i == gesture {
                     if myPlayers[i].isPlaying {
                         return
