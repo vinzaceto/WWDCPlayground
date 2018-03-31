@@ -73,7 +73,6 @@ public class MainViewController:UIViewController{
                 }
             } else {
                 let alert = UIAlertController(title: "NO CAMERA FOUND", message: "This device can't run the Playground", preferredStyle: .alert)
-                //alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             }
         } catch {
@@ -186,7 +185,9 @@ public class MainViewController:UIViewController{
     }
     
     func setUpCoreMLModel() {
-        guard let selectedModel = try? VNCoreMLModel(for: hand_recognizer_model_2().model) else {
+        
+        // Choose the model to use with Vision
+        guard let selectedModel = try? VNCoreMLModel(for: hand_recognizer_model_3().model) else {
             fatalError("Could not load model.")
         }
         

@@ -16,7 +16,7 @@ if #available(iOSApplicationExtension 11.0, *) {
 //#-end-hidden-code
 /*:
  # Let's start
- ### Just tap Run Code
+ ### Just tap Run Code and put your hand on the camera
 
  ---
  

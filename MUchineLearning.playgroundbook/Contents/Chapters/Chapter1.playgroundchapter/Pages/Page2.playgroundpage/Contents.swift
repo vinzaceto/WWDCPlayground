@@ -4,7 +4,7 @@
  # Info
  ## The neural network and its precision
 
-To allow the Playground to recognize the hand, I created my personal neural network with my iPhone camera, hundreds photos of my hands and a third part free online tool. The precision of this neural network is about 90% to recognise the right gesture that you are reproducing: obviously it is influenced by light condition and ceiling color but it works enough well.
+To allow the Playground to recognize the hand, I created my personal neural network (the CoreML model) with my iPhone camera, hundreds photos of my hands and a third part free online tool. The precision of this neural network is about 80% to recognise the right gesture that you are reproducing: obviously it is influenced by light condition and ceiling color but it works enough well.
  To use the neural network in this playground, I created another project in Xcode that I used to compile the neural network model and then I putted it in to the playground.
 */
 

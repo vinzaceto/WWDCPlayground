@@ -107,7 +107,7 @@ public class AudioManager: NSObject, AVAudioPlayerDelegate {
     public func playSoundFromArray(gesture: Int) {
 
         for i in 0 ... myPlayers.count - 1 {
-            if gesture >= 0 {
+            if gesture > 0 {
                 if i == gesture {
                     if myPlayers[i].isPlaying {
                         return
