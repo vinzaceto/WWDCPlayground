@@ -1,5 +1,8 @@
 # MUchineLearning - My WWDC18 scholarship submission
 
+![alt icon](https://github.com/vinzaceto/WWDCPlayground/blob/master/icon.png)
+
+
 MUchineLearning is a word created from _MUsic Machine_ and _Machine Learning_
 	
 This playground uses machine learning to recognise gestures, that you can easily do with your hand, and it reproduces different sounds based on the different gestures. You can choose different music instruments and, in the bottom of the view, you can see what the playground is recognising every moment.
