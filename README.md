@@ -11,6 +11,9 @@ To realise this magic, I used Vision and CoreML: very powerful tools. I used Vis
 A crucial aspect of the implementation with CoreML has been defining the underlying neural network. I created my personal neural network with my iPhone camera, hundreds photos of my hands and a third part free online tool. The precision of this neural network is about 80% to recognise the right gesture that you are reproducing: obviously it is influenced by light condition and ceiling color but it works enough well.
 To use the neural network in this playground, I created another project in Xcode that I used to compile the neural network model and then I putted it in to the playground.
 
+![alt online tool](https://github.com/vinzaceto/WWDCPlayground/blob/master/Screen%20Shot%202018-03-31%20at%2009.40.21.png)
+
+
 
 Here you can find a video demo of my Plagroundbook
 https://www.youtube.com/watch?v=cvkEDOhAg4w
