@@ -1,4 +1,4 @@
-# MUchineLearning - My WWDC18 scholarship submission
+# MUchineLearning - My WWDC18 scholarship submission [Accepted]
 
 ![alt icon](https://github.com/vinzaceto/WWDCPlayground/blob/master/icon.png)
 
